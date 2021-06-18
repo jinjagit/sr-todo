@@ -3,13 +3,19 @@
 class TodoItemReflex < ApplicationReflex
   def create
     TodoItem.create!(todo_item_params)
-   end
+  end
 
-   private
+  def toggle_done
+    todo_item = TodoItem.find(element['data-id'])
+    toggle = todo_item.done_at ? nil : DateTime.now
+    todo_item.update_attribute(:done_at, toggle)
+  end
 
-   def todo_item_params
-     params.require(:todo_item).permit(:title)
-   end
+  private
+
+  def todo_item_params
+    params.require(:todo_item).permit(:title)
+  end
 
   # Add Reflex methods in this file.
   #
