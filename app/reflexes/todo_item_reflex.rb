@@ -11,6 +11,10 @@ class TodoItemReflex < ApplicationReflex
     todo_item.update_attribute(:done_at, toggle)
   end
 
+  def destroy
+    TodoItem.find(element['data-id']).destroy
+  end
+
   private
 
   def todo_item_params
